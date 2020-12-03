@@ -5,8 +5,11 @@ LABEL maintainer="Michael Caron" \
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
 RUN apt-get update -y && \
-    apt-get install -y tzdata
-RUN apt-get install -y --no-install-recommends\
+    apt-get upgrade -y && \
+    apt-get install -y tzdata && \
+    apt-get install -y software-properties-common
+RUN add-apt-repository universe
+RUN apt-get update && apt-get install -y --no-install-recommends\
                     git \
                     curl \
                     gcc-9 \
@@ -17,9 +20,13 @@ RUN apt-get install -y --no-install-recommends\
                     unzip \
                     tar \
                     ca-certificates && \
+                    python3.4 \
+                    python3-pip \
     apt-get autoclean && \
     apt-get autoremove && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN pip install gcovr
 
 CMD [ "mkdir", "build" ]
