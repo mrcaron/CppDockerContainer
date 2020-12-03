@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:hirsute
 LABEL maintainer="Michael Caron" \
       description="Basic C++ stuff for CircleCi repo." \
       version="0.1.0"
@@ -16,6 +16,7 @@ RUN apt-get install -y --no-install-recommends\
                     python3-pip \
                     git \
                     curl \
+                    cmake \
                     gcc-9 \
                     g++ \
                     clang-10 \
